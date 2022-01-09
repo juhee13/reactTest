@@ -1,44 +1,29 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { BOARD_ALL_REQUEST } from "../reducers/post";
 
 const BasicBoard = () => {
   const [contents, setContents] = useState([]);
+  const dispatch = useDispatch();
+  const { post } = useSelector((state) => state.post);
 
   const getPost = async () => {
-    // let boardList = await axios.get("http://localhost:3060/post");
-    // setContents(boardList.data);
-    const boardList = [
-      {
-        category: "공지",
-        title: "지난 메뉴 보기",
-        comment_count: 3,
-        date: "11:52",
-      },
-      {
-        category: "필독",
-        title: "금전 거래 이용 규칙",
-        comment_count: 123,
-        date: "09:24",
-      },
-      {
-        category: "후원글",
-        title: "2022년 1월 후원금 & 사용내역",
-        comment_count: 22,
-        date: "2022.01.01",
-      },
-      {
-        category: "공지",
-        title: "율도 가락방 서비스 종료",
-        comment_count: 33,
-        date: "2021.11.08",
-      },
-    ];
-    setContents(boardList);
+    dispatch({
+      type: BOARD_ALL_REQUEST,
+    });
   };
   useEffect(() => {
     getPost();
   }, []);
+
+  useEffect(() => {
+    console.log(post);
+    if (post?.data) {
+      setContents(post.data);
+    }
+  }, [post && post.data]);
 
   return (
     <Container>
@@ -51,14 +36,14 @@ const BasicBoard = () => {
       <ContentsContainer>
         {contents
           ? contents.map((item, index) => (
-              <div key={index + item.date}>
+              <div key={index + item.ins_dttm}>
                 <CategoryContent>{item.category}</CategoryContent>
                 <TitleContent>
                   {item.title}
-                  <span>[{item.comment_count}]</span>
+                  <span>[{item.comments_cnt}]</span>
                 </TitleContent>
-                <IconContent>{item.date}</IconContent>
-                <IconContent>{item.like}</IconContent>
+                <IconContent>{item.ins_dttm}</IconContent>
+                <IconContent>{item.b_like}</IconContent>
               </div>
             ))
           : "내용이 없습니다."}
