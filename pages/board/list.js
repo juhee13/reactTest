@@ -1,5 +1,11 @@
+import BasicBoard from "../../components/BasicBoard";
+
 const BoardList = () => {
-  return <div></div>;
+  return (
+    <>
+      <BasicBoard />
+    </>
+  );
 };
 
 export default BoardList;

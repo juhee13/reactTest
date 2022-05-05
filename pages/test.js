@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useDispatch, userDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BasicBoard from "../components/BasicBoard";
 
 const test = () => {
@@ -8,8 +8,6 @@ const test = () => {
   const dispatch = useDispatch();
 
   const changeNick = useCallback(() => {
-    console.log("nickname : ", nickname);
-    console.log("new_nickname : ", new_nickname);
     dispatch({
       type: "CHANGE_NICKNAME",
       data: new_nickname,

@@ -1,6 +1,8 @@
 import propTypes from "prop-types";
 import Head from "next/head";
 import wrapper from "../store/configureStore";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import LayoutHeader from "../components/LayoutHeader";
 
 const App = ({ Component }) => {
   return (
@@ -8,7 +10,9 @@ const App = ({ Component }) => {
       <Head>
         <title>타이틀!</title>
       </Head>
+        <LayoutHeader />
       <Component />
+
     </>
   );
 };

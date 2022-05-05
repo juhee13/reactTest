@@ -4,15 +4,21 @@ import WriteImg from "/public/images/write_image.svg";
 import Smile from "/public/images/smile.svg";
 import Pencil from "/public/images/pencil.svg";
 import Close from "/public/images/white_close.svg";
-import { useDispatch, useSelector } from "react-redux";
 import { BOARD_WRITE_REQUEST } from "../../reducers/post";
+import { useDispatch, useSelector } from "react-redux";
 
 const BoardWrite = () => {
-  const [contents, setContents] = useState("");
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("H");
+  const [contents, setContents] = useState('');
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('H');
   const dispatch = useDispatch();
   const { message, isSuccess } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    if (isSuccess) {
+      alert('글이 등록되었습니다.');
+    }
+  }, [isSuccess]);
 
   useEffect(() => {
     if (message) {
@@ -38,8 +44,8 @@ const BoardWrite = () => {
   const save = () => {
     dispatch({
       type: BOARD_WRITE_REQUEST,
-      data: { title, contents, category, writer: "zena" },
-    });
+      data: { title, contents, category, writer: 'yulmu' }
+    })
   };
   return (
     <Container>
@@ -59,6 +65,8 @@ const BoardWrite = () => {
             //for loop 으로 변경
             <option value="H">유머</option>
             <option value="I">이슈</option>
+            <option value="S">공포/오컬트</option>
+            <option value="R">정보</option>
           </SelecetBox>
           <div>
             <Smile />
